@@ -110,7 +110,6 @@ resource "aws_instance" "jumpbox" {
   user_data = <<-EOF
     #!/bin/bash
     hostnamectl set-hostname jumpbox
-    echo "127.0.0.1 jumpbox" >> /etc/hosts
 
     apt update
     apt install -y netcat-openbsd
@@ -138,7 +137,7 @@ resource "aws_instance" "control_plane" {
   user_data = <<-EOF
     #!/bin/bash
     hostnamectl set-hostname control-plane
-    echo "127.0.0.1 control-plane" >> /etc/hosts
+    echo "127.0.1.1 control-plane.kubernetes.local control-plane" >> /etc/hosts
 
     apt update
     apt install -y netcat-openbsd
@@ -167,7 +166,7 @@ resource "aws_instance" "worker" {
   user_data = <<-EOF
     #!/bin/bash
     hostnamectl set-hostname worker-${count.index}
-    echo "127.0.0.1 worker-${count.index}" >> /etc/hosts
+    echo "127.0.1.1 worker-${count.index}.kubernetes.local worker-${count.index}" >> /etc/hosts
 
     apt update
     apt install -y netcat-openbsd

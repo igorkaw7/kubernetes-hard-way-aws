@@ -120,6 +120,10 @@ resource "aws_instance" "jumpbox" {
     volume_type = var.root_volume_type
   }
 
+  lifecycle {
+    ignore_changes = [ami]
+  }
+
   tags = merge({
     Name = "${var.project_name}-jumpbox"
     Role = "admin"
@@ -146,6 +150,10 @@ resource "aws_instance" "control_plane" {
   root_block_device {
     volume_size = var.control_plane_root_volume_size
     volume_type = var.root_volume_type
+  }
+
+  lifecycle {
+    ignore_changes = [ami]
   }
 
   tags = merge({
@@ -175,6 +183,10 @@ resource "aws_instance" "worker" {
   root_block_device {
     volume_size = var.worker_root_volume_size
     volume_type = var.root_volume_type
+  }
+
+  lifecycle {
+    ignore_changes = [ami]
   }
 
   tags = merge({

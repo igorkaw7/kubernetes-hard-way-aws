@@ -9,3 +9,6 @@ ssh/
 
 # macOS
 .DS_Store
+
+# Misc
+*.drawio
